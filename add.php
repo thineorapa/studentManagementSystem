@@ -26,6 +26,10 @@ if(isset($_POST['submit'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <!-- sweetalert -->
+    <script src="sweet\node_modules\sweetalert\dist\sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="sweet\node_modules\sweetalert\dist\sweetalert.css">
+
     <!-- Bootstrap cdn -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -49,7 +53,7 @@ if(isset($_POST['submit'])){
         <div class="form-group row">
             <div class="col-md-6 mx-auto">
                 <label for="birthday">Birthday</label>
-                <input type="text" name="birthday" class="form-control" id="birthday" placeholder="mm/dd/yyy">
+                <input type="date" name="birthday" class="form-control" id="birthday" placeholder="mm/dd/yyy">
             </div>
         </div>
         <div class="form-group row">
@@ -64,7 +68,6 @@ if(isset($_POST['submit'])){
         <div class="row">
             <button type="submit" name="submit" class="btn btn-primary w-50 mx-auto mt-5 ">Add</button>
         </div>
-        
     </form>
 </body>
 </html>

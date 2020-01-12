@@ -4,12 +4,6 @@ if(!isset($_SESSION)){
     session_start();
 }
 
-if(isset($_SESSION['Status']) == "admin"){
-    echo "Welcome " .  $_SESSION['UserLogin'];
-} else {
-    echo header("Location: index.php");
-}
-
 include_once("connections/connection.php");
 $con = connection();
 
@@ -30,6 +24,9 @@ $row = $students->fetch_assoc();
 
     <!-- Bootstrap cdn -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 
     <title>Student Management System</title>
 </head>
@@ -57,8 +54,8 @@ $row = $students->fetch_assoc();
                     <td> <?= $row['gender']; ?> </td>
                     <td> <?= $row['birthday']; ?> </td>
                     <form action="delete.php" method="post">
-                        <td><a href="edit.php?ID=<?= $row['id']; ?>" class="btn btn-warning">Edit</a>
-                                <span> <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+                        <td><a href="edit.php?ID=<?= $row['id']; ?>" class="btn btn-warning"><i class="far fa-edit"></i></a>
+                                <span> <button type="submit" name="delete" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                             <input type="hidden" name="ID" value="<?php echo $row['id'];?>"> </span>
                         </td>
                     </form>
