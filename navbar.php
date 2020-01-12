@@ -3,6 +3,10 @@
 include_once("connections/connection.php");
 $con = connection();
 
+if(!isset($_SESSION)){
+    session_start();
+}
+
 
 ?>
 
@@ -33,7 +37,7 @@ $con = connection();
             <li class="nav-item">
                 <a class="nav-link" href="add.php">Add new student</a>
             </li>
-            <?php if(isset($_SESSION['UserLogin'])){?>
+            <?php if(!isset($_SESSION['UserLogin'])){?>
             <li class="nav-item">
                 <a class="nav-link" href="login.php">Login</a>
             </li>
@@ -41,6 +45,7 @@ $con = connection();
             <li class="nav-item">
                 <a class="nav-link" href="logout.php">Logout</a>
             </li>
+            <li><a class="nav-link"><?= $_SESSION['UserLogin'] ?></a></li>
             <?php } ?>
             </ul>
             <form class="form-inline my-2 my-lg-0">

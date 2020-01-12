@@ -3,6 +3,10 @@
 include_once("connections/connection.php");
 $con = connection();
 
+if(!isset($_SESSION)){
+    session_start();
+}
+
 if(isset($_POST['login'])){
     // echo "login";
 

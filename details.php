@@ -4,7 +4,7 @@ if(!isset($_SESSION)){
     session_start();
 }
 
-if(isset($_SESSION['Status']) && $_SESSION['Status'] == "admin"){
+if(isset($_SESSION['Status']) == "admin"){
     echo "Welcome " .  $_SESSION['UserLogin'];
 } else {
     echo header("Location: index.php");
@@ -13,7 +13,9 @@ if(isset($_SESSION['Status']) && $_SESSION['Status'] == "admin"){
 include_once("connections/connection.php");
 $con = connection();
 
-$sql = "SELECT * FROM student_kit ORDER BY id DESC";
+$id = $_GET['ID'];
+
+$sql = "SELECT * FROM students WHERE id = '$id'";
 $students = $con->query($sql) or die ($con->error);
 $row = $students->fetch_assoc();
 
@@ -33,6 +35,38 @@ $row = $students->fetch_assoc();
 </head>
 <body>
     <?php include_once("navbar.php")?>
+
+    <div>
+        <h1 class="text-center m-5">Student Details<h1>
+    </div>
+    <div class="container">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Birthday</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> <?= $row['firstName']; ?> </td>
+                    <td> <?= $row['lastName']; ?> </td>
+                    <td> <?= $row['gender']; ?> </td>
+                    <td> <?= $row['birthday']; ?> </td>
+                    <form action="delete.php" method="post">
+                        <td><a href="edit.php?ID=<?= $row['id']; ?>" class="btn btn-warning">Edit</a>
+                                <span> <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+                            <input type="hidden" name="ID" value="<?php echo $row['id'];?>"> </span>
+                        </td>
+                    </form>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
    
 </body>
 </html>

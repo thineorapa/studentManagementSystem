@@ -2,6 +2,11 @@
 
 include_once("connections/connection.php");
 $con = connection();
+$id = $_GET['ID'];
+
+$sql = "SELECT * FROM students WHERE id = '$id'";
+$students = $con->query($sql) or die ($con->error);
+$row = $students->fetch_assoc();
 
 // check if the post method was submitted once the button add is click
 if(isset($_POST['submit'])){
@@ -11,11 +16,11 @@ if(isset($_POST['submit'])){
     $lname = $_POST['lastName'];
     $birthday = $_POST['birthday'];
     $gender = $_POST['gender'];
-    $sql = "INSERT INTO `students` (`firstName`, `lastName`, `birthday`, `gender`) VALUES ('$fname', '$lname', '$birthday', '$gender')";
+    $sql = "UPDATE students SET firstName = '$fname', lastName = '$lname', birthday = '$birthday', gender = '$gender' WHERE id = '$id'";
 
     $con->query($sql) or die ($con->error);
 
-    echo header("Location: index.php");
+    echo header("Location: details.php?ID=".$id);
 }
 ?>
 
@@ -37,32 +42,32 @@ if(isset($_POST['submit'])){
         <div class="form-group row">
             <div class="col-md-6 mx-auto">
                 <label for="firstName">First Name</label>
-                <input type="text" name="firstName" class="form-control" id="fname">
+                <input type="text" name="firstName" class="form-control" id="fname" value="<?= $row['firstName']; ?>">
             </div>
         </div>
         <div class="form-group row">
             <div class="col-md-6 mx-auto">
                 <label for="lastName">Last Name</label>
-                <input type="text" name="lastName" class="form-control" id="lname">
+                <input type="text" name="lastName" class="form-control" id="lname" value="<?= $row['lastName']; ?>">
             </div>
         </div>
         <div class="form-group row">
             <div class="col-md-6 mx-auto">
                 <label for="birthday">Birthday</label>
-                <input type="text" name="birthday" class="form-control" id="birthday" placeholder="mm/dd/yyy">
+                <input type="text" name="birthday" class="form-control" id="birthday" placeholder="mm/dd/yyy" value="<?= $row['birthday']; ?>">
             </div>
         </div>
         <div class="form-group row">
             <div class="col-md-6 mx-auto">
                 <label for="gender">Gender</label>
                 <select class="custom-select" name="gender" id="gender">
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
+                    <option value="Male" <?php echo ($row['gender'] == 'Male')? 'selected' : '' ?>>Male</option>
+                    <option value="Female" <?php echo ($row['gender'] == 'Female')? 'selected' : '' ?>>Female</option>
                 </select>
             </div>
         </div>
         <div class="row">
-            <button type="submit" name="submit" class="btn btn-primary w-50 mx-auto mt-5 ">Add</button>
+            <button type="submit" name="submit" class="btn btn-primary w-50 mx-auto mt-5 ">Update</button>
         </div>
         
     </form>

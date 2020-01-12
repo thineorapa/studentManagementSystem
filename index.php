@@ -13,7 +13,7 @@ if(!isset($_SESSION)){
 include_once("connections/connection.php");
 $con = connection();
 
-$sql = "SELECT * FROM student_kit ORDER BY id DESC";
+$sql = "SELECT * FROM students ORDER BY id DESC";
 $students = $con->query($sql) or die ($con->error);
 $row = $students->fetch_assoc();
 
@@ -53,7 +53,7 @@ $row = $students->fetch_assoc();
                 <tr>
                     <td> <?= $row['firstName']; ?> </td>
                     <td> <?= $row['lastName']; ?> </td>
-                    <td><a href="details.php">View</a></td>
+                    <td><a href="details.php?ID=<?php echo $row['id'];?>">View</a></td>
                 </tr>
                 <?php }while($row = $students->fetch_assoc()) ?>
             </tbody>
